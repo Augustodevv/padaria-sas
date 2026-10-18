@@ -10,6 +10,14 @@
 
   --background: var(--cream);
   --foreground: var(--coffee);
+
+  /* Gráficos do painel. --chart-1 é o caramelo da marca escurecido até passar no validador
+     de paleta (contraste >= 3:1 e croma mínimo); #C68B59 puro reprova. */
+  --chart-1: #a06430;
+  --chart-grid: #eadfce;
+  --chart-axis: #6b5b53;
+  --chart-ink: #3e2723;
+  --chart-surface: #ffffff;
 }
 
 @theme inline {

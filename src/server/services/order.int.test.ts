@@ -150,7 +150,7 @@ describe("createOrder", () => {
         userId,
         input({
           fulfillment: "DELIVERY",
-          address: { zipCode: "01310-100", street: "Rua A", number: "1", neighborhood: "Moema", city: "São Paulo", state: "SP" },
+          address: { zipCode: "01310-100", street: "Rua A", number: "1", neighborhood: "Bairro Inexistente", city: "São Paulo", state: "SP" },
         }),
       ),
     ).rejects.toMatchObject({ code: "OUT_OF_ZONE" });

@@ -54,6 +54,7 @@ export function AuthForm({ action, fields, submitLabel, hidden, footer }: Props)
               type={f.type ?? "text"}
               autoComplete={f.autoComplete}
               required={f.required ?? true}
+              defaultValue={f.type === "password" ? undefined : state.values?.[f.name]}
               aria-invalid={!!errors}
               aria-describedby={errors ? `${id}-err` : undefined}
               className="w-full rounded-2xl border border-beige bg-white px-4 py-3 aria-[invalid=true]:border-red-500"

@@ -75,6 +75,20 @@ maison-du-pain/
   (botão "simular pagamento aprovado"); em produção a ausência do token é erro. O retorno automático e as notificações exigem URL pública https.
 - **Pendências conhecidas:** devolver o uso do cupom quando o pedido é cancelado (Fase 5) e trocar o rate limit em memória por Redis em produção.
 
+## Painel administrativo (`/admin`)
+
+- **Papéis.** STAFF vê dashboard, pedidos, clientes e produtos (leitura) e muda o status dos pedidos. ADMIN também gerencia produtos, cupons e configurações.
+  A matriz está em `server/auth/policies.ts` e é testada.
+- **Autorização em camadas.** O layout é só a primeira barreira. Cada página chama `requirePermission(...)` e cada Server Action chama `authorize(...)`,
+  que relê o usuário do banco. Redirects de páginas protegidas chegam no stream (status HTTP 200 + redirecionamento); nenhum dado é enviado.
+- **Pedidos.** Máquina de estados em `order-transitions.ts` (um passo por vez ou cancelar). A transição roda com a linha do pedido travada,
+  grava `AuditLog` e, ao cancelar, devolve o cupom. Confirmar manualmente um pedido sem pagamento online fica marcado na auditoria.
+  Reembolso no Mercado Pago ainda é manual (a auditoria marca `refundPending`).
+- **Dashboard.** Receita, pedidos e ticket médio contam só `CONFIRMED → DELIVERED`, com variação contra o período anterior; série diária no fuso de São Paulo.
+  Gráficos em SVG próprio, uma série, tooltip, teclado e tabela alternativa. Cor de marca das marcas: `#A06430` (o caramelo `#C68B59` reprova no validador de contraste).
+- **Produtos.** Arquivar em vez de excluir (pedidos mantêm o snapshot). Imagens por URL https; upload via Cloudinary fica para quando houver credenciais.
+- **Formulários.** As actions devolvem os valores enviados (nunca senhas) para o React 19 não limpar o que a pessoa digitou após um erro.
+
 ## Testes
 
 - `npm test`: unitários (regras puras: preço, cupom, agenda, entrega, status, assinatura, políticas, validators).
