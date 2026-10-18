@@ -8,7 +8,7 @@
 | Estilo | Tailwind CSS + shadcn/ui | Design system próprio sobre primitivos acessíveis |
 | Animação | Motion (padrão) + GSAP/ScrollTrigger (só parallax/storytelling) | Bundle enxuto |
 | Banco | PostgreSQL + Prisma | Migrations, tipos, relações |
-| Auth | Auth.js (credentials + sessão JWT) + RBAC server-side | CUSTOMER / STAFF / ADMIN |
+| Auth | Sessão própria: JWT (jose) em cookie httpOnly + bcryptjs; RBAC server-side | Sem dependência beta do Auth.js no Next 16; CUSTOMER / STAFF / ADMIN. O papel é sempre relido do banco nos guards |
 | Dinheiro | Inteiros em centavos | Sem erro de ponto flutuante |
 | Pagamento | Mercado Pago sandbox | Webhook com assinatura + idempotência |
 | Imagens | Cloudinary (upload assinado) | Admin sem tocar no disco |
