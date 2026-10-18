@@ -62,6 +62,25 @@ maison-du-pain/
 - **Supabase (produção/staging):** use o *Session pooler* (IPv4). A migration já habilita RLS em todas as tabelas;
   o Prisma conecta como `postgres` e ignora o RLS, enquanto a API REST do Supabase fica sem acesso.
 
+## Pedidos e pagamentos
+
+- **Preço sempre do servidor.** `quoteOrder` recalcula itens, cupom e frete a partir do banco; o cliente só envia `productId` e quantidade.
+  O item do pedido guarda snapshot de nome e preço.
+- **Idempotência.** `Order.idempotencyKey` é única: reenvio do checkout devolve o mesmo pedido, e a chave de um usuário não serve para outro.
+- **Cupom atômico.** O contador é incrementado com `UPDATE ... WHERE usedCount < maxUses` na mesma transação do pedido; um uso por cliente.
+- **Pagamento.** O pedido nasce `PENDING_PAYMENT` com um `Payment` pendente. O webhook (`/api/webhooks/mercadopago`) valida a assinatura HMAC,
+  busca o pagamento na API (não confia no corpo), confere o valor contra o total do pedido e aplica o evento com a linha do pedido travada (`FOR UPDATE`).
+  Eventos repetidos viram no-op e eventos atrasados nunca regridem o status.
+- **Modos.** Com `MERCADOPAGO_ACCESS_TOKEN` (credencial **TEST-** = sandbox) usa o Checkout Pro. Sem token, **só em desenvolvimento**, entra o modo simulado
+  (botão "simular pagamento aprovado"); em produção a ausência do token é erro. O retorno automático e as notificações exigem URL pública https.
+- **Pendências conhecidas:** devolver o uso do cupom quando o pedido é cancelado (Fase 5) e trocar o rate limit em memória por Redis em produção.
+
+## Testes
+
+- `npm test`: unitários (regras puras: preço, cupom, agenda, entrega, status, assinatura, políticas, validators).
+- `npm run test:int`: integração contra Postgres real (precisa de `db:local`, `db:migrate`, `db:seed`): preço do banco, snapshot, idempotência,
+  cupom com concorrência, valor divergente, eventos de pagamento repetidos/simultâneos/atrasados.
+
 ## Fases
 
 1. **Planejamento/Setup** — projeto, design system, Prisma schema, docker-compose, env.

@@ -12,7 +12,8 @@
     "typecheck": "tsc --noEmit",
     "db:seed": "prisma db seed",
     "db:local": "node scripts/dev-db.mjs",
-    "db:migrate": "prisma migrate deploy"
+    "db:migrate": "prisma migrate deploy",
+    "test:int": "cross-env INTEGRATION=1 vitest run"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.2",
@@ -40,6 +41,7 @@
     "@types/pg": "^8.23.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "cross-env": "^10.1.0",
     "embedded-postgres": "^18.4.0-beta.17",
     "eslint": "^9",
     "eslint-config-next": "16.4.2",
