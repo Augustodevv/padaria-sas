@@ -1,6 +1,7 @@
 import { Clock, MapPin, Phone, Quote, Star } from "lucide-react";
 import Link from "next/link";
 import { Reveal } from "@/components/motion/reveal";
+import { formatBRL } from "@/lib/money";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
 import type { ProductWithRelations } from "@/server/repositories/products";
 import { NewsletterForm } from "./newsletter-form";
@@ -52,9 +53,7 @@ export function Combos({ products }: { products: ProductWithRelations[] }) {
                 <div className="flex flex-col justify-center gap-3 p-8">
                   <h3 className="font-display text-3xl">{p.name}</h3>
                   <p className="text-coffee/70">{p.description}</p>
-                  <p className="font-display text-2xl text-caramel">
-                    {new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(p.priceCents / 100)}
-                  </p>
+                  <p className="font-display text-2xl text-caramel">{formatBRL(p.priceCents)}</p>
                 </div>
               </Link>
             </Reveal>

@@ -54,6 +54,14 @@ maison-du-pain/
 │  └─ tests/          unit (Vitest)
 ```
 
+## Banco em desenvolvimento
+
+- **Sem Docker:** `npm run db:local` sobe um Postgres embutido (porta 5433, dados em `%LOCALAPPDATA%/maison-du-pain/pgdata`).
+  Depois: `npm run db:migrate` e `npm run db:seed`. `DATABASE_URL` em `.env` (veja `.env.example`).
+- **Com Docker:** `docker compose up -d` (porta 5432).
+- **Supabase (produção/staging):** use o *Session pooler* (IPv4). A migration já habilita RLS em todas as tabelas;
+  o Prisma conecta como `postgres` e ignora o RLS, enquanto a API REST do Supabase fica sem acesso.
+
 ## Fases
 
 1. **Planejamento/Setup** — projeto, design system, Prisma schema, docker-compose, env.
