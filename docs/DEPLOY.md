@@ -6,16 +6,13 @@ Tempo estimado: 45 a 60 minutos na primeira vez. Nada aqui exige colar segredos 
 
 ## 0. Antes de tudo: GitHub
 
-O repositório é local e a branch é `master`, mas o CI (`.github/workflows/ci.yml`) roda em `main`.
+Repositório: <https://github.com/Augustodevv/padaria-sas>. A branch local já é `main` (o CI roda em `main`) e o remote `origin` já aponta para ele.
 
 ```bash
-git branch -M main
-# crie um repositório VAZIO no GitHub (sem README) e copie a URL
-git remote add origin https://github.com/SEU_USUARIO/maison-du-pain.git
 git push -u origin main
 ```
 
-Troque `OWNER` no badge do README pelo seu usuário. Confira que o CI ficou verde antes de ligar a Vercel.
+Confira que o CI ficou verde (aba *Actions*) antes de ligar a Vercel.
 
 ## 1. Banco de dados (Supabase)
 

@@ -4,7 +4,7 @@ Plataforma completa para uma padaria artesanal francesa: **loja online com check
 
 > Todos os produtos, clientes e depoimentos são **dados fictícios** de demonstração.
 
-![CI](https://github.com/OWNER/maison-du-pain/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/Augustodevv/padaria-sas/actions/workflows/ci.yml/badge.svg)
 
 ## Sumário
 
@@ -91,7 +91,7 @@ Detalhes de pedidos, pagamentos, painel e segurança estão em [`docs/ARCHITECTU
 Requisitos: **Node 20.19+** (testado com 24) e um PostgreSQL (o projeto traz um embutido, sem Docker).
 
 ```bash
-git clone <seu-fork> && cd maison-du-pain
+git clone https://github.com/Augustodevv/padaria-sas.git maison-du-pain && cd maison-du-pain
 npm install                 # também roda `prisma generate`
 cp .env.example .env        # preencha DATABASE_URL e AUTH_SECRET (veja abaixo)
 npm run db:local            # terminal 1: Postgres embutido na porta 5433 (deixe rodando)
