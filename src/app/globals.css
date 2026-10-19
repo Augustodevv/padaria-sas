@@ -26,6 +26,8 @@
   --color-caramel: var(--caramel);
   --color-beige: var(--beige);
   --color-olive: var(--olive);
+  /* Caramelo escurecido para texto e botões sobre fundo claro (contraste AA). O #C68B59 original fica para fundos escuros e detalhes decorativos. */
+  --color-caramel-deep: #8f5a2a;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
@@ -56,6 +58,36 @@ body {
 ::selection {
   background: var(--caramel);
   color: var(--white);
+}
+
+/* Entrada do hero em CSS: o conteúdo já está no HTML, sem esperar JS. O título só se move (não some),
+   para o LCP não ser adiado pela animação. */
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes hero-rise {
+  from {
+    transform: translateY(22px);
+  }
+  to {
+    transform: none;
+  }
+}
+
+.hero-in {
+  animation: hero-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-rise {
+  animation: hero-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @media (prefers-reduced-motion: reduce) {

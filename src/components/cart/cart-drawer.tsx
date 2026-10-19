@@ -58,7 +58,7 @@ export function CartDrawer() {
 
             {lines.length === 0 ? (
               <div className="flex flex-1 flex-col items-center justify-center gap-4 px-6 text-center">
-                <ShoppingBag size={40} className="text-caramel" />
+                <ShoppingBag size={40} className="text-caramel-deep" />
                 <p className="font-editorial text-2xl italic">Seu carrinho está vazio</p>
                 <Link
                   href="/cardapio"
@@ -86,17 +86,17 @@ export function CartDrawer() {
                             <Link
                               href={`/produto/${l.slug}`}
                               onClick={close}
-                              className="font-medium hover:text-caramel"
+                              className="font-medium hover:text-caramel-deep"
                             >
                               {l.name}
                             </Link>
-                            <p className="mt-1 text-sm text-coffee/60">{formatBRL(l.priceCents)}</p>
+                            <p className="mt-1 text-sm text-coffee/70">{formatBRL(l.priceCents)}</p>
                             <div className="mt-3 flex items-center gap-3">
                               <div className="flex items-center rounded-full border border-beige">
                                 <button
                                   aria-label={`Diminuir quantidade de ${l.name}`}
                                   onClick={() => setQuantity(l.productId, l.quantity - 1)}
-                                  className="p-2 hover:text-caramel"
+                                  className="p-2 hover:text-caramel-deep"
                                 >
                                   <Minus size={14} />
                                 </button>
@@ -106,7 +106,7 @@ export function CartDrawer() {
                                 <button
                                   aria-label={`Aumentar quantidade de ${l.name}`}
                                   onClick={() => setQuantity(l.productId, l.quantity + 1)}
-                                  className="p-2 hover:text-caramel"
+                                  className="p-2 hover:text-caramel-deep"
                                 >
                                   <Plus size={14} />
                                 </button>
@@ -114,7 +114,7 @@ export function CartDrawer() {
                               <button
                                 aria-label={`Remover ${l.name}`}
                                 onClick={() => remove(l.productId)}
-                                className="p-2 text-coffee/50 transition hover:text-red-700"
+                                className="p-2 text-coffee/70 transition hover:text-red-700"
                               >
                                 <Trash2 size={16} />
                               </button>
@@ -131,13 +131,13 @@ export function CartDrawer() {
                     <span className="text-coffee/70">Subtotal</span>
                     <span className="font-display text-2xl">{formatBRL(subtotalCents)}</span>
                   </div>
-                  <p className="text-xs text-coffee/50">
+                  <p className="text-xs text-coffee/70">
                     Cupons, entrega e valor final são calculados no checkout.
                   </p>
                   <Link
                     href="/checkout"
                     onClick={close}
-                    className="block rounded-full bg-coffee py-4 text-center font-medium text-cream transition hover:bg-caramel"
+                    className="block rounded-full bg-coffee py-4 text-center font-medium text-cream transition hover:bg-caramel-deep"
                   >
                     Finalizar pedido
                   </Link>

@@ -27,9 +27,9 @@ export function NewsletterForm() {
         type="email"
         required
         placeholder="Seu melhor email"
-        className="flex-1 rounded-full bg-cream/10 px-6 py-3.5 text-cream placeholder:text-cream/50 focus:bg-cream/15"
+        className="flex-1 rounded-full bg-cream/10 px-6 py-3.5 text-cream placeholder:text-cream/60 focus:bg-cream/15"
       />
-      <button className="rounded-full bg-caramel px-8 py-3.5 font-medium text-white transition hover:bg-cream hover:text-coffee">
+      <button className="rounded-full bg-caramel-deep px-8 py-3.5 font-medium text-white transition hover:bg-cream hover:text-coffee">
         Assinar
       </button>
     </form>

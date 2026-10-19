@@ -51,7 +51,7 @@ async function Order({ params, searchParams }: Props) {
 
       <header className="text-center">
         {!pending && !cancelled && <ConfirmedCheck />}
-        <p className="mt-6 font-editorial text-xl italic text-caramel">Pedido #{order.number}</p>
+        <p className="mt-6 font-editorial text-xl italic text-caramel-deep">Pedido #{order.number}</p>
         <h1 className="mt-1 font-display text-4xl sm:text-5xl">
           {cancelled ? "Pedido cancelado" : pending ? "Falta o pagamento" : "Pedido confirmado!"}
         </h1>
@@ -71,7 +71,7 @@ async function Order({ params, searchParams }: Props) {
       {pending && isOwner && (
         <div className="mt-8 flex flex-col items-center gap-3">
           <form action={payOrderAction.bind(null, order.id)}>
-            <button className="rounded-full bg-coffee px-10 py-4 font-medium text-cream transition hover:bg-caramel">
+            <button className="rounded-full bg-coffee px-10 py-4 font-medium text-cream transition hover:bg-caramel-deep">
               Pagar {formatBRL(order.totalCents)}
             </button>
           </form>
@@ -90,7 +90,7 @@ async function Order({ params, searchParams }: Props) {
           {STEPS.map(([key, label], i) => (
             <li key={key} aria-current={i === stepIndex ? "step" : undefined}>
               <div className={cn("mx-auto h-2 rounded-full", i <= stepIndex ? "bg-olive" : "bg-beige")} />
-              <span className={cn("mt-2 block", i <= stepIndex ? "font-medium" : "text-coffee/50")}>{label}</span>
+              <span className={cn("mt-2 block", i <= stepIndex ? "font-medium" : "text-coffee/70")}>{label}</span>
             </li>
           ))}
         </ol>
@@ -122,7 +122,7 @@ async function Order({ params, searchParams }: Props) {
       </section>
 
       <p className="mt-8 text-center">
-        <Link href="/conta" className="underline hover:text-caramel">Ver todos os meus pedidos</Link>
+        <Link href="/conta" className="underline hover:text-caramel-deep">Ver todos os meus pedidos</Link>
       </p>
     </>
   );
@@ -130,7 +130,7 @@ async function Order({ params, searchParams }: Props) {
 
 export default function PedidoPage(props: Props) {
   return (
-    <div className="mx-auto max-w-2xl px-6 pb-24 pt-32">
+    <div className="min-h-[100svh] mx-auto max-w-2xl px-6 pb-24 pt-32">
       <Suspense fallback={<div className="h-96 animate-pulse rounded-card bg-beige/70" aria-busy />}>
         <Order {...props} />
       </Suspense>

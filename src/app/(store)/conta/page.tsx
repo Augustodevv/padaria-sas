@@ -28,7 +28,7 @@ async function Account() {
       <p className="mt-2 text-coffee/70">{user.email}</p>
       <div className="mt-8 flex flex-wrap gap-3">
         {hasRole(user, "STAFF") && (
-          <Link href="/admin" className="rounded-full bg-coffee px-6 py-3 text-sm font-medium text-cream hover:bg-caramel">
+          <Link href="/admin" className="rounded-full bg-coffee px-6 py-3 text-sm font-medium text-cream hover:bg-caramel-deep">
             Abrir painel
           </Link>
         )}
@@ -41,9 +41,9 @@ async function Account() {
       <section className="mt-12" aria-labelledby="h-pedidos">
         <h2 id="h-pedidos" className="font-display text-2xl">Meus pedidos</h2>
         {orders.length === 0 ? (
-          <p className="mt-3 text-coffee/60">
+          <p className="mt-3 text-coffee/70">
             Você ainda não fez pedidos.{" "}
-            <Link href="/cardapio" className="underline hover:text-caramel">Ver cardápio</Link>
+            <Link href="/cardapio" className="underline hover:text-caramel-deep">Ver cardápio</Link>
           </p>
         ) : (
           <ul className="mt-4 divide-y divide-beige rounded-2xl bg-white shadow-soft">
@@ -52,7 +52,7 @@ async function Account() {
                 <Link href={`/pedido/${o.id}`} className="flex items-center justify-between gap-4 px-5 py-4 hover:bg-beige/40">
                   <span>
                     <span className="font-medium">Pedido #{o.number}</span>
-                    <span className="block text-sm text-coffee/60">
+                    <span className="block text-sm text-coffee/70">
                       {new Intl.DateTimeFormat("pt-BR", { dateStyle: "short", timeZone: "America/Sao_Paulo" }).format(o.createdAt)}
                       {" · "}
                       {STATUS_LABEL[o.status] ?? o.status}
@@ -71,7 +71,7 @@ async function Account() {
 
 export default function ContaPage() {
   return (
-    <div className="mx-auto max-w-3xl px-6 pb-24 pt-32">
+    <div className="min-h-[100svh] mx-auto max-w-3xl px-6 pb-24 pt-32">
       <Suspense fallback={<div className="h-40 animate-pulse rounded-card bg-beige/70" aria-busy />}>
         <Account />
       </Suspense>

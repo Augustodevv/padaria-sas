@@ -85,7 +85,7 @@ async function Orders({ searchParams }: Props) {
                   <td className={tableCls.td}><StatusBadge status={o.status} /></td>
                   <td className={tableCls.td}>
                     {o.fulfillment === "PICKUP" ? "Retirada" : "Entrega"}
-                    {o.scheduledFor && <span className="text-coffee/60"> · {formatSlot(o.scheduledFor)}</span>}
+                    {o.scheduledFor && <span className="text-coffee/70"> · {formatSlot(o.scheduledFor)}</span>}
                   </td>
                   <td className={cn(tableCls.td, "text-right tabular-nums")}>{formatBRL(o.totalCents)}</td>
                 </tr>
@@ -98,7 +98,7 @@ async function Orders({ searchParams }: Props) {
       {pages > 1 && (
         <nav aria-label="Paginação" className="mt-5 flex items-center justify-center gap-4 text-sm">
           {page > 1 ? <Link href={href({ status, n: sp.n, page: page - 1 })} className="underline">← Anterior</Link> : <span />}
-          <span className="text-coffee/60">Página {page} de {pages}</span>
+          <span className="text-coffee/70">Página {page} de {pages}</span>
           {page < pages ? <Link href={href({ status, n: sp.n, page: page + 1 })} className="underline">Próxima →</Link> : <span />}
         </nav>
       )}

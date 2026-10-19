@@ -19,6 +19,7 @@ export function Footer() {
             <li><Link href="/cardapio" className="hover:text-caramel">Cardápio</Link></li>
             <li><Link href="/#historia" className="hover:text-caramel">Nossa história</Link></li>
             <li><Link href="/entrar" className="hover:text-caramel">Minha conta</Link></li>
+            <li><Link href="/privacidade" className="hover:text-caramel">Privacidade</Link></li>
           </ul>
         </div>
         <div>
@@ -30,7 +31,7 @@ export function Footer() {
           </ul>
         </div>
       </div>
-      <div className="border-t border-cream/10 py-6 text-center text-xs text-cream/50">
+      <div className="border-t border-cream/10 py-6 text-center text-xs text-cream/60">
         © Maison du Pain — projeto de portfólio com dados fictícios.
       </div>
     </footer>

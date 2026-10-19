@@ -5,6 +5,9 @@ import { Suspense } from "react";
 import { ProductCard } from "@/components/store/product-card";
 import { ProductPurchase } from "@/components/store/product-purchase";
 import { ProductVisual } from "@/components/store/product-visual";
+import { JsonLd } from "@/components/seo/json-ld";
+import { productJsonLd } from "@/lib/seo";
+import { absoluteUrl } from "@/lib/site";
 import { getProductBySlug, listRelatedProducts } from "@/server/repositories/products";
 
 type Params = Promise<{ slug: string }>;
@@ -13,10 +16,18 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const { slug } = await params;
   const product = await getProductBySlug(slug);
   if (!product) return { title: "Produto não encontrado" };
+  const image = product.images[0]?.url;
   return {
     title: product.name,
     description: product.description,
-    openGraph: { title: product.name, description: product.description },
+    alternates: { canonical: `/produto/${product.slug}` },
+    openGraph: {
+      type: "website",
+      title: product.name,
+      description: product.description,
+      url: absoluteUrl(`/produto/${product.slug}`),
+      ...(image && { images: [{ url: image, alt: product.name }] }),
+    },
   };
 }
 
@@ -42,10 +53,21 @@ async function Detail({ params }: { params: Params }) {
 
   return (
     <>
-      <nav aria-label="Navegação estrutural" className="mb-8 text-sm text-coffee/60">
-        <Link href="/cardapio" className="hover:text-caramel">Cardápio</Link>
+      <JsonLd
+        data={productJsonLd({
+          name: product.name,
+          description: product.description,
+          url: absoluteUrl(`/produto/${product.slug}`),
+          priceCents: product.priceCents,
+          available: product.isAvailable,
+          category: product.category.name,
+          images: product.images.map((i) => i.url),
+        })}
+      />
+      <nav aria-label="Navegação estrutural" className="mb-8 text-sm text-coffee/70">
+        <Link href="/cardapio" className="hover:text-caramel-deep">Cardápio</Link>
         {" / "}
-        <Link href={`/cardapio?categoria=${product.category.slug}`} className="hover:text-caramel">
+        <Link href={`/cardapio?categoria=${product.category.slug}`} className="hover:text-caramel-deep">
           {product.category.name}
         </Link>
       </nav>
@@ -57,6 +79,8 @@ async function Detail({ params }: { params: Params }) {
             imageUrl={product.images[0]?.url}
             alt={product.images[0]?.alt ?? product.name}
             iconSize={120}
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            priority
           />
         </div>
 
@@ -71,11 +95,11 @@ async function Detail({ params }: { params: Params }) {
 
           <dl className="space-y-5 border-t border-beige pt-8">
             <div>
-              <dt className="font-editorial text-xl italic text-caramel">Ingredientes</dt>
+              <dt className="font-editorial text-xl italic text-caramel-deep">Ingredientes</dt>
               <dd className="mt-1 text-coffee/75">{product.ingredients.join(", ")}</dd>
             </div>
             <div>
-              <dt className="font-editorial text-xl italic text-caramel">Alergênicos</dt>
+              <dt className="font-editorial text-xl italic text-caramel-deep">Alergênicos</dt>
               <dd className="mt-2 flex flex-wrap gap-2">
                 {product.allergens.length === 0 ? (
                   <span className="text-coffee/75">Não contém alergênicos declarados.</span>
@@ -101,7 +125,7 @@ async function Detail({ params }: { params: Params }) {
 
 export default function ProductPage({ params }: { params: Params }) {
   return (
-    <div className="mx-auto max-w-7xl px-6 pb-24 pt-32">
+    <div className="min-h-[100svh] mx-auto max-w-7xl px-6 pb-24 pt-32">
       <Suspense fallback={<div className="aspect-[2/1] animate-pulse rounded-card bg-beige/70" aria-busy />}>
         <Detail params={params} />
       </Suspense>

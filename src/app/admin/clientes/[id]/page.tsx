@@ -30,14 +30,14 @@ async function Customer({ params }: { params: Promise<{ id: string }> }) {
           <p className="text-sm">{customer.email}</p>
           {customer.phone && <p className="text-sm text-coffee/70">{customer.phone}</p>}
           <dl className="mt-5 grid grid-cols-2 gap-4 border-t border-beige pt-4 text-sm">
-            <div><dt className="text-coffee/60">Pedidos</dt><dd className="font-display text-2xl">{valid.length}</dd></div>
-            <div><dt className="text-coffee/60">Total gasto</dt><dd className="font-display text-2xl">{formatBRL(spent)}</dd></div>
+            <div><dt className="text-coffee/70">Pedidos</dt><dd className="font-display text-2xl">{valid.length}</dd></div>
+            <div><dt className="text-coffee/70">Total gasto</dt><dd className="font-display text-2xl">{formatBRL(spent)}</dd></div>
           </dl>
         </Card>
 
         <Card title="Histórico de pedidos">
           {customer.orders.length === 0 ? (
-            <p className="text-sm text-coffee/60">Este cliente ainda não fez pedidos.</p>
+            <p className="text-sm text-coffee/70">Este cliente ainda não fez pedidos.</p>
           ) : (
             <div className={tableCls.wrap}>
               <table className={tableCls.table}>

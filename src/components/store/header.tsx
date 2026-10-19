@@ -46,7 +46,7 @@ export function Header() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            Maison <span className="font-editorial italic text-caramel">du</span> Pain
+            Maison <span className={cn("font-editorial italic", solid ? "text-caramel-deep" : "text-caramel")}>du</span> Pain
           </motion.span>
         </Link>
 
@@ -91,7 +91,7 @@ export function Header() {
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   exit={{ scale: 0 }}
-                  className="absolute right-1 top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-caramel px-1 text-[11px] font-semibold text-white"
+                  className="absolute right-1 top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-caramel-deep px-1 text-[11px] font-semibold text-white"
                 >
                   {count}
                 </motion.span>

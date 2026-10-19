@@ -3,6 +3,10 @@ import { FeaturedProducts } from "@/components/store/featured-products";
 import { Hero } from "@/components/store/hero";
 import { BestSellers, Combos, Gallery, Newsletter, SectionTitle, Testimonials, Visit } from "@/components/store/home-sections";
 import { StorySection } from "@/components/store/story-section";
+import { JsonLd } from "@/components/seo/json-ld";
+import { bakeryJsonLd } from "@/lib/seo";
+import { SITE_DESCRIPTION, absoluteUrl } from "@/lib/site";
+import { getStoreConfig } from "@/server/repositories/store";
 import { listProducts } from "@/server/repositories/products";
 
 function ProductsSkeleton() {
@@ -16,7 +20,7 @@ function ProductsSkeleton() {
 }
 
 async function HomeProducts() {
-  const all = await listProducts({ sort: "popular" });
+  const [all, config] = await Promise.all([listProducts({ sort: "popular" }), getStoreConfig()]);
   const available = all.filter((p) => p.isAvailable);
   const featured = all.filter((p) => p.isFeatured);
   const combos = all.filter((p) => p.category.slug === "combos");
@@ -24,6 +28,16 @@ async function HomeProducts() {
 
   return (
     <>
+      <JsonLd
+        data={bakeryJsonLd({
+          name: config.name,
+          url: absoluteUrl("/"),
+          description: SITE_DESCRIPTION,
+          phone: config.phone,
+          address: config.address,
+          hours: config.hours,
+        })}
+      />
       <section id="destaques" className="mx-auto max-w-7xl scroll-mt-20 px-6 py-28">
         <SectionTitle eyebrow="Saindo do forno" title="Produtos em destaque" />
         <FeaturedProducts products={featured.length ? featured : available} />

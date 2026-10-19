@@ -7,6 +7,7 @@ import { listCategories, listProducts, type SortKey } from "@/server/repositorie
 export const metadata: Metadata = {
   title: "Cardápio",
   description: "Pães artesanais, croissants, bolos, doces, cafés e combos da Maison du Pain.",
+  alternates: { canonical: "/cardapio" },
 };
 
 const SORTS: SortKey[] = ["popular", "price-asc", "price-desc", "name"];
@@ -22,14 +23,14 @@ async function Results({ searchParams }: { searchParams: SearchParams }) {
     return (
       <div className="py-24 text-center">
         <p className="font-editorial text-3xl italic">Nada encontrado por aqui</p>
-        <p className="mt-2 text-coffee/60">Tente outra busca ou escolha outra categoria.</p>
+        <p className="mt-2 text-coffee/70">Tente outra busca ou escolha outra categoria.</p>
       </div>
     );
   }
 
   return (
     <>
-      <p className="text-sm text-coffee/60" role="status">
+      <p className="text-sm text-coffee/70" role="status">
         {products.length} {products.length === 1 ? "produto" : "produtos"}
       </p>
       <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -50,7 +51,7 @@ function GridSkeleton() {
   return (
     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4" aria-busy>
       {Array.from({ length: 8 }, (_, i) => (
-        <div key={i} className="aspect-[3/4] animate-pulse rounded-card bg-beige/70" />
+        <div key={i} className="h-[27rem] animate-pulse rounded-card bg-beige/70" />
       ))}
     </div>
   );
@@ -58,12 +59,12 @@ function GridSkeleton() {
 
 export default function CardapioPage({ searchParams }: { searchParams: SearchParams }) {
   return (
-    <div className="mx-auto max-w-7xl px-6 pb-24 pt-32">
+    <div className="min-h-[100svh] mx-auto max-w-7xl px-6 pb-24 pt-32">
       <header className="mb-10 max-w-2xl">
-        <p className="font-editorial text-xl italic text-caramel">Feito hoje, para você</p>
+        <p className="font-editorial text-xl italic text-caramel-deep">Feito hoje, para você</p>
         <h1 className="mt-2 font-display text-5xl">Cardápio</h1>
       </header>
-      <Suspense>
+      <Suspense fallback={<div className="h-[9.25rem] md:h-[8.25rem]" aria-hidden />}>
         <Filters />
       </Suspense>
       <div className="mt-10">

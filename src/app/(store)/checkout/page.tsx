@@ -17,7 +17,7 @@ async function Checkout() {
 
 export default function CheckoutPage() {
   return (
-    <div className="mx-auto max-w-6xl px-6 pb-24 pt-32">
+    <div className="min-h-[100svh] mx-auto max-w-6xl px-6 pb-24 pt-32">
       <h1 className="mb-10 font-display text-5xl">Finalizar pedido</h1>
       <Suspense fallback={<div className="h-96 animate-pulse rounded-card bg-beige/70" aria-busy />}>
         <Checkout />

@@ -47,7 +47,7 @@ export function CatalogFilters({ categories }: Props) {
     <div className="space-y-6" aria-busy={pending}>
       <div className="flex flex-col gap-4 md:flex-row">
         <div className="relative flex-1">
-          <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-coffee/40" size={18} />
+          <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-coffee/70" size={18} />
           <label htmlFor="busca" className="sr-only">Buscar produtos</label>
           <input
             id="busca"

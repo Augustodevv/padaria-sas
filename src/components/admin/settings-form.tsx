@@ -43,7 +43,7 @@ export function SettingsForm({ initial }: { initial: SettingsValues }) {
 
       <fieldset className="space-y-5">
         <legend className="mb-1 font-display text-xl">Horário de funcionamento</legend>
-        <p className="text-sm text-coffee/60">Define os horários de retirada e entrega oferecidos no checkout (blocos de 30 min). Formato 07:00–19:00.</p>
+        <p className="text-sm text-coffee/70">Define os horários de retirada e entrega oferecidos no checkout (blocos de 30 min). Formato 07:00–19:00.</p>
         <div className="grid gap-5 sm:grid-cols-3">
           <Field label="Segunda a sexta" name="weekdays" state={state}>
             {(p) => <input {...p} name="weekdays" defaultValue={state.values?.weekdays ?? initial.weekdays} className={inputCls} />}

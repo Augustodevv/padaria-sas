@@ -58,7 +58,7 @@ async function Dashboard({ searchParams }: Props) {
 
       <Card title="Pedidos recentes" className="mt-6" action={<Link href="/admin/pedidos" className="text-sm underline">Ver todos</Link>}>
         {d.recent.length === 0 ? (
-          <p className="py-6 text-center text-sm text-coffee/60">Ainda não há pedidos.</p>
+          <p className="py-6 text-center text-sm text-coffee/70">Ainda não há pedidos.</p>
         ) : (
           <div className={tableCls.wrap}>
             <table className={tableCls.table}>

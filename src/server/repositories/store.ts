@@ -4,6 +4,8 @@ import { parseZones, type DeliveryZone } from "@/server/services/delivery";
 
 export interface StoreConfig {
   name: string;
+  phone: string | null;
+  address: string | null;
   hours: OpeningHours;
   zones: DeliveryZone[];
 }
@@ -13,6 +15,8 @@ export async function getStoreConfig(): Promise<StoreConfig> {
   const h = s?.openingHours as Partial<OpeningHours> | null | undefined;
   return {
     name: s?.name ?? "Maison du Pain",
+    phone: s?.phone ?? null,
+    address: s?.address ?? null,
     hours: {
       weekdays: h?.weekdays ?? DEFAULT_HOURS.weekdays,
       saturday: h?.saturday ?? DEFAULT_HOURS.saturday,

@@ -3,8 +3,11 @@
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
-import { Stagger, StaggerItem } from "@/components/motion/stagger";
 
+/**
+ * A entrada do texto usa CSS (não JS): o <h1> é o LCP e já vem renderizado no HTML,
+ * sem esperar a hidratação para sair de `opacity: 0`.
+ */
 export function Hero() {
   const reduce = useReducedMotion();
   const { scrollY } = useScroll();
@@ -18,33 +21,28 @@ export function Hero() {
         style={reduce ? undefined : { y: bgY }}
         className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_70%_40%,#c68b59_0%,#6b4226_35%,#3e2723_70%)]"
       />
+      {/* brilho suave por gradiente (sem filter: blur, que é caro de pintar em celulares) */}
       <motion.div
         aria-hidden
         style={reduce ? undefined : { y: glowY }}
-        className="absolute -right-32 top-1/4 -z-10 h-[34rem] w-[34rem] rounded-full bg-caramel/25 blur-3xl"
+        className="absolute -right-48 top-[15%] -z-10 h-[40rem] w-[40rem] rounded-full bg-[radial-gradient(circle,rgb(198_139_89/0.3)_0%,transparent_65%)]"
       />
       <div aria-hidden className="absolute inset-0 -z-10 bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%224%22 height=%224%22><circle cx=%222%22 cy=%222%22 r=%220.6%22 fill=%22white%22 fill-opacity=%220.05%22/></svg>')]" />
 
       <div className="mx-auto w-full max-w-7xl px-6 pb-24 pt-32">
-        <Stagger onMount className="max-w-3xl">
-          <StaggerItem>
-            <p className="font-editorial text-2xl italic text-caramel">Padaria artesanal · desde 2014</p>
-          </StaggerItem>
-          <StaggerItem>
-            <h1 className="mt-4 font-display text-5xl leading-[1.05] sm:text-7xl lg:text-8xl">
-              O sabor que transforma seus momentos
-            </h1>
-          </StaggerItem>
-          <StaggerItem>
-            <p className="mt-6 max-w-xl text-lg text-cream/75">
-              Pães de fermentação lenta, croissants de manteiga e doces feitos à mão todas as
-              manhãs. Peça online e retire quentinho na loja.
-            </p>
-          </StaggerItem>
-          <StaggerItem className="mt-10 flex flex-wrap gap-4">
+        <div className="max-w-3xl">
+          <p className="hero-in font-editorial text-2xl italic text-caramel">Padaria artesanal · desde 2014</p>
+          <h1 className="hero-rise mt-4 font-display text-5xl leading-[1.05] sm:text-7xl lg:text-8xl">
+            O sabor que transforma seus momentos
+          </h1>
+          <p className="hero-in mt-6 max-w-xl text-lg text-cream/75" style={{ animationDelay: "150ms" }}>
+            Pães de fermentação lenta, croissants de manteiga e doces feitos à mão todas as
+            manhãs. Peça online e retire quentinho na loja.
+          </p>
+          <div className="hero-in mt-10 flex flex-wrap gap-4" style={{ animationDelay: "280ms" }}>
             <Link
               href="/cardapio"
-              className="rounded-full bg-caramel px-8 py-4 font-medium text-white transition hover:bg-cream hover:text-coffee"
+              className="rounded-full bg-caramel-deep px-8 py-4 font-medium text-white transition hover:bg-cream hover:text-coffee"
             >
               Explorar cardápio
             </Link>
@@ -54,8 +52,8 @@ export function Hero() {
             >
               Nossa história
             </Link>
-          </StaggerItem>
-        </Stagger>
+          </div>
+        </div>
       </div>
 
       <motion.a

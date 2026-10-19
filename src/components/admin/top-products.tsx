@@ -13,7 +13,7 @@ interface Row {
 export function TopProducts({ rows }: { rows: Row[] }) {
   const reduce = useReducedMotion();
   if (rows.length === 0) {
-    return <p className="py-8 text-center text-sm text-coffee/60">Nenhuma venda no período.</p>;
+    return <p className="py-8 text-center text-sm text-coffee/70">Nenhuma venda no período.</p>;
   }
   const max = Math.max(...rows.map((r) => r.units));
 
@@ -38,7 +38,7 @@ export function TopProducts({ rows }: { rows: Row[] }) {
               transition={{ duration: 0.7, delay: 0.08 * i, ease: "easeOut" }}
             />
           </div>
-          <p className="mt-1 text-xs text-coffee/60 opacity-0 transition group-hover:opacity-100 group-focus:opacity-100">
+          <p className="mt-1 text-xs text-coffee/70 opacity-0 transition group-hover:opacity-100 group-focus:opacity-100">
             {formatBRL(r.cents)} em vendas
           </p>
         </li>

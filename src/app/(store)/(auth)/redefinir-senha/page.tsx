@@ -12,7 +12,7 @@ async function Form({ searchParams }: { searchParams: Promise<{ token?: string }
     return (
       <p className="text-coffee/70">
         Link inválido.{" "}
-        <Link href="/recuperar-senha" className="underline hover:text-caramel">
+        <Link href="/recuperar-senha" className="underline hover:text-caramel-deep">
           Peça um novo
         </Link>
         .

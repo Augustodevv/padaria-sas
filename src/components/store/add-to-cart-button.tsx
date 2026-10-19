@@ -40,7 +40,7 @@ export function AddToCartButton({ product, quantity = 1, disabled, variant = "fu
       aria-label={variant === "icon" ? `Adicionar ${product.name} ao carrinho` : undefined}
       className={cn(
         "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50",
-        done ? "bg-olive text-white" : "bg-coffee text-cream hover:bg-caramel",
+        done ? "bg-olive text-white" : "bg-coffee text-cream hover:bg-caramel-deep",
         variant === "icon" ? "h-11 w-11" : "px-6 py-3.5 text-sm",
         className,
       )}

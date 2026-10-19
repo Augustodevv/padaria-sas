@@ -28,13 +28,13 @@ async function LoginForm({ searchParams }: { searchParams: Promise<{ next?: stri
         footer={
           <div className="space-y-2">
             <p>
-              <Link href="/recuperar-senha" className="underline hover:text-caramel">
+              <Link href="/recuperar-senha" className="underline hover:text-caramel-deep">
                 Esqueci minha senha
               </Link>
             </p>
             <p>
               Não tem conta?{" "}
-              <Link href="/cadastrar" className="font-medium text-coffee underline hover:text-caramel">
+              <Link href="/cadastrar" className="font-medium text-coffee underline hover:text-caramel-deep">
                 Cadastre-se
               </Link>
             </p>

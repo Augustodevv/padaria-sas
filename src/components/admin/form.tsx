@@ -27,7 +27,7 @@ export function Field({
     <div>
       <label htmlFor={id} className="mb-1.5 block text-sm font-medium">{label}</label>
       {children({ id, "aria-invalid": !!error, "aria-describedby": describedBy })}
-      {hint && <p id={`${id}-hint`} className="mt-1 text-xs text-coffee/55">{hint}</p>}
+      {hint && <p id={`${id}-hint`} className="mt-1 text-xs text-coffee/70">{hint}</p>}
       {error && <p id={`${id}-err`} className="mt-1 text-sm text-red-700">{error}</p>}
     </div>
   );

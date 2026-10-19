@@ -20,7 +20,7 @@ async function Shell({ children }: { children: React.ReactNode }) {
         <div className="mb-4 flex items-center justify-between lg:mb-8 lg:block">
           <Link href="/admin" className="font-display text-xl">
             Maison <span className="font-editorial italic text-caramel">du</span> Pain
-            <span className="mt-0.5 hidden text-xs font-sans uppercase tracking-widest text-cream/50 lg:block">Painel</span>
+            <span className="mt-0.5 hidden text-xs font-sans uppercase tracking-widest text-cream/60 lg:block">Painel</span>
           </Link>
           <div className="flex items-center gap-4 text-xs lg:hidden">
             <Link href="/" className="underline">Ver loja</Link>

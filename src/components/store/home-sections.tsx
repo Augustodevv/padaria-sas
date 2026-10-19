@@ -11,7 +11,7 @@ import { ProductVisual } from "./product-visual";
 export function SectionTitle({ eyebrow, title, light }: { eyebrow: string; title: string; light?: boolean }) {
   return (
     <Reveal className="mx-auto mb-14 max-w-2xl text-center">
-      <p className="font-editorial text-xl italic text-caramel">{eyebrow}</p>
+      <p className={`font-editorial text-xl italic ${light ? "text-cream" : "text-caramel-deep"}`}>{eyebrow}</p>
       <h2 className={`mt-2 font-display text-4xl sm:text-5xl ${light ? "text-cream" : ""}`}>{title}</h2>
     </Reveal>
   );
@@ -53,7 +53,7 @@ export function Combos({ products }: { products: ProductWithRelations[] }) {
                 <div className="flex flex-col justify-center gap-3 p-8">
                   <h3 className="font-display text-3xl">{p.name}</h3>
                   <p className="text-coffee/70">{p.description}</p>
-                  <p className="font-display text-2xl text-caramel">{formatBRL(p.priceCents)}</p>
+                  <p className="font-display text-2xl text-caramel-deep">{formatBRL(p.priceCents)}</p>
                 </div>
               </Link>
             </Reveal>
@@ -78,11 +78,11 @@ export function Testimonials() {
         {reviews.map((r) => (
           <StaggerItem key={r.name}>
             <figure className="h-full rounded-card bg-white p-8 shadow-soft">
-              <Quote className="text-caramel" size={28} />
+              <Quote className="text-caramel-deep" size={28} />
               <blockquote className="mt-4 font-editorial text-2xl italic leading-snug">{r.text}</blockquote>
               <figcaption className="mt-6 flex items-center justify-between text-sm">
                 <span className="font-medium">{r.name}</span>
-                <span className="flex text-caramel" aria-label="5 de 5 estrelas">
+                <span className="flex text-caramel-deep" role="img" aria-label="5 de 5 estrelas">
                   {Array.from({ length: 5 }, (_, i) => (
                     <Star key={i} size={14} fill="currentColor" />
                   ))}
@@ -92,7 +92,7 @@ export function Testimonials() {
           </StaggerItem>
         ))}
       </Stagger>
-      <p className="mt-6 text-center text-xs text-coffee/40">Depoimentos ilustrativos (dados de demonstração).</p>
+      <p className="mt-6 text-center text-xs text-coffee/70">Depoimentos ilustrativos (dados de demonstração).</p>
     </section>
   );
 }
@@ -143,12 +143,12 @@ export function Visit() {
       <SectionTitle eyebrow="Venha tomar um café" title="Visite a padaria" />
       <div className="grid gap-8 md:grid-cols-3">
         <Reveal className="rounded-card bg-white p-8 shadow-soft">
-          <MapPin className="text-caramel" />
+          <MapPin className="text-caramel-deep" />
           <h3 className="mt-4 font-display text-xl">Endereço</h3>
           <p className="mt-2 text-coffee/70">Rua das Padarias, 123<br />São Paulo, SP</p>
         </Reveal>
         <Reveal delay={0.1} className="rounded-card bg-white p-8 shadow-soft">
-          <Clock className="text-caramel" />
+          <Clock className="text-caramel-deep" />
           <h3 className="mt-4 font-display text-xl">Horários</h3>
           <dl className="mt-2 space-y-1 text-coffee/70">
             {rows.map(([d, h]) => (
@@ -160,7 +160,7 @@ export function Visit() {
           </dl>
         </Reveal>
         <Reveal delay={0.2} className="rounded-card bg-white p-8 shadow-soft">
-          <Phone className="text-caramel" />
+          <Phone className="text-caramel-deep" />
           <h3 className="mt-4 font-display text-xl">Contato</h3>
           <p className="mt-2 text-coffee/70">(11) 99999-0000<br />ola@maisondupain.example</p>
         </Reveal>

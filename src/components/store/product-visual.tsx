@@ -1,5 +1,7 @@
 import { Cake, Coffee, CookingPot, Croissant, Cookie, GlassWater, Package, Sandwich, Wheat } from "lucide-react";
+import Image from "next/image";
 import type { ComponentType } from "react";
+import { isAllowedImageUrl } from "@/lib/images";
 import { cn } from "@/lib/utils";
 
 const byCategory: Record<string, { Icon: ComponentType<{ size?: number; strokeWidth?: number }>; bg: string }> = {
@@ -19,16 +21,31 @@ interface ProductVisualProps {
   alt: string;
   className?: string;
   iconSize?: number;
+  /** Dica de tamanho para o otimizador de imagens (evita baixar a versão grande em telas pequenas). */
+  sizes?: string;
+  /** Imagem acima da dobra: carrega com prioridade (melhora o LCP). */
+  priority?: boolean;
 }
 
 /**
- * Mostra a foto do produto; sem foto cadastrada, exibe uma ilustração de
- * fallback com a cor da categoria (as fotos reais entram via upload no admin).
+ * Mostra a foto do produto (otimizada pelo next/image); sem foto cadastrada, exibe uma ilustração de
+ * fallback com a cor da categoria (as fotos reais entram via painel).
  */
-export function ProductVisual({ categorySlug, imageUrl, alt, className, iconSize = 64 }: ProductVisualProps) {
-  if (imageUrl) {
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img src={imageUrl} alt={alt} loading="lazy" className={cn("h-full w-full object-cover", className)} />;
+export function ProductVisual({
+  categorySlug,
+  imageUrl,
+  alt,
+  className,
+  iconSize = 64,
+  sizes = "(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw",
+  priority,
+}: ProductVisualProps) {
+  if (imageUrl && isAllowedImageUrl(imageUrl)) {
+    return (
+      <div className="relative h-full w-full">
+        <Image src={imageUrl} alt={alt} fill sizes={sizes} priority={priority} className={cn("object-cover", className)} />
+      </div>
+    );
   }
   const { Icon, bg } = byCategory[categorySlug] ?? { Icon: CookingPot, bg: "from-beige to-caramel/50" };
   return (

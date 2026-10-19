@@ -44,7 +44,7 @@ async function Customers({ searchParams }: Props) {
                 <tr key={c.id} className="hover:bg-cream/40">
                   <td className={tableCls.td}>
                     <Link href={`/admin/clientes/${c.id}`} className="font-medium hover:underline">{c.name}</Link>
-                    <span className="block text-xs text-coffee/60">{c.email}</span>
+                    <span className="block text-xs text-coffee/70">{c.email}</span>
                   </td>
                   <td className={tableCls.td}>{date.format(c.createdAt)}</td>
                   <td className={cn(tableCls.td, "text-right tabular-nums")}>{c.orders}</td>

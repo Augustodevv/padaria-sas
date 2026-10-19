@@ -49,18 +49,18 @@ async function OrderDetail({ params, searchParams }: Props) {
               ))}
             </ul>
             <dl className="mt-3 space-y-1.5 border-t border-beige pt-3 text-sm">
-              <div className="flex justify-between"><dt className="text-coffee/65">Subtotal</dt><dd className="tabular-nums">{formatBRL(order.subtotalCents)}</dd></div>
+              <div className="flex justify-between"><dt className="text-coffee/70">Subtotal</dt><dd className="tabular-nums">{formatBRL(order.subtotalCents)}</dd></div>
               {order.discountCents > 0 && (
                 <div className="flex justify-between text-olive"><dt>Desconto{order.coupon ? ` (${order.coupon.code})` : ""}</dt><dd className="tabular-nums">− {formatBRL(order.discountCents)}</dd></div>
               )}
-              <div className="flex justify-between"><dt className="text-coffee/65">Entrega</dt><dd className="tabular-nums">{formatBRL(order.deliveryFeeCents)}</dd></div>
+              <div className="flex justify-between"><dt className="text-coffee/70">Entrega</dt><dd className="tabular-nums">{formatBRL(order.deliveryFeeCents)}</dd></div>
               <div className="flex justify-between border-t border-beige pt-2 font-semibold"><dt>Total</dt><dd className="tabular-nums">{formatBRL(order.totalCents)}</dd></div>
             </dl>
           </Card>
 
           <Card title="Histórico">
             {audit.length === 0 ? (
-              <p className="text-sm text-coffee/60">Sem alterações feitas pela equipe.</p>
+              <p className="text-sm text-coffee/70">Sem alterações feitas pela equipe.</p>
             ) : (
               <ol className="space-y-3 text-sm">
                 {audit.map((a) => {
@@ -71,7 +71,7 @@ async function OrderDetail({ params, searchParams }: Props) {
                         <span className="font-medium">{a.user?.name ?? "Sistema"}</span>{" "}
                         {m.from && m.to ? <>mudou de {STATUS_LABEL[m.from]} para <strong>{STATUS_LABEL[m.to]}</strong></> : a.action}
                       </p>
-                      <p className="text-xs text-coffee/55">
+                      <p className="text-xs text-coffee/70">
                         {new Intl.DateTimeFormat("pt-BR", { dateStyle: "short", timeStyle: "short", timeZone: "America/Sao_Paulo" }).format(a.createdAt)}
                         {m.manualConfirmation && " · confirmação manual (sem pagamento online)"}
                         {m.couponReleased && " · cupom devolvido"}
@@ -88,7 +88,7 @@ async function OrderDetail({ params, searchParams }: Props) {
         <div className="space-y-6">
           <Card title="Ações">
             {next.length === 0 ? (
-              <p className="text-sm text-coffee/60">Pedido finalizado: não há mais ações.</p>
+              <p className="text-sm text-coffee/70">Pedido finalizado: não há mais ações.</p>
             ) : (
               <div className="flex flex-col gap-2">
                 {next.map((to) => (
@@ -120,8 +120,8 @@ async function OrderDetail({ params, searchParams }: Props) {
             <p className="font-medium">
               <Link href={`/admin/clientes/${order.user.id}`} className="hover:underline">{order.user.name}</Link>
             </p>
-            <p className="text-sm text-coffee/65">{order.user.email}</p>
-            {order.user.phone && <p className="text-sm text-coffee/65">{order.user.phone}</p>}
+            <p className="text-sm text-coffee/70">{order.user.email}</p>
+            {order.user.phone && <p className="text-sm text-coffee/70">{order.user.phone}</p>}
             {order.address && (
               <p className="mt-3 text-sm">
                 {order.address.street}, {order.address.number}{order.address.complement ? ` — ${order.address.complement}` : ""}
@@ -135,13 +135,13 @@ async function OrderDetail({ params, searchParams }: Props) {
           <Card title="Pagamento">
             {payment ? (
               <dl className="space-y-1 text-sm">
-                <div className="flex justify-between"><dt className="text-coffee/65">Status</dt><dd>{payment.status}</dd></div>
-                <div className="flex justify-between"><dt className="text-coffee/65">Valor</dt><dd className="tabular-nums">{formatBRL(payment.amountCents)}</dd></div>
-                <div className="flex justify-between"><dt className="text-coffee/65">Provedor</dt><dd>{payment.provider}</dd></div>
-                {payment.providerId && <div className="flex justify-between gap-3"><dt className="text-coffee/65">ID</dt><dd className="truncate">{payment.providerId}</dd></div>}
+                <div className="flex justify-between"><dt className="text-coffee/70">Status</dt><dd>{payment.status}</dd></div>
+                <div className="flex justify-between"><dt className="text-coffee/70">Valor</dt><dd className="tabular-nums">{formatBRL(payment.amountCents)}</dd></div>
+                <div className="flex justify-between"><dt className="text-coffee/70">Provedor</dt><dd>{payment.provider}</dd></div>
+                {payment.providerId && <div className="flex justify-between gap-3"><dt className="text-coffee/70">ID</dt><dd className="truncate">{payment.providerId}</dd></div>}
               </dl>
             ) : (
-              <p className="text-sm text-coffee/60">Sem registro de pagamento.</p>
+              <p className="text-sm text-coffee/70">Sem registro de pagamento.</p>
             )}
           </Card>
         </div>

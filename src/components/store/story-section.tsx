@@ -24,7 +24,7 @@ export function StorySection() {
 
         <div>
           <Reveal>
-            <p className="font-editorial text-xl italic text-caramel">Nossa história</p>
+            <p className="font-editorial text-xl italic text-caramel-deep">Nossa história</p>
             <h2 className="mt-3 font-display text-4xl leading-tight sm:text-5xl">
               Uma padaria de bairro com alma francesa
             </h2>
@@ -38,17 +38,17 @@ export function StorySection() {
           </Reveal>
           <ul className="mt-10 space-y-6">
             {pillars.map(({ Icon, title, text }, i) => (
-              <Reveal key={title} delay={0.15 + i * 0.1}>
-                <li className="flex gap-4">
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-cream text-caramel shadow-soft">
+              <li key={title}>
+                <Reveal delay={0.15 + i * 0.1} className="flex gap-4">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-cream text-caramel-deep shadow-soft">
                     <Icon size={22} />
                   </span>
                   <div>
                     <h3 className="font-display text-xl">{title}</h3>
                     <p className="text-coffee/70">{text}</p>
                   </div>
-                </li>
-              </Reveal>
+                </Reveal>
+              </li>
             ))}
           </ul>
         </div>

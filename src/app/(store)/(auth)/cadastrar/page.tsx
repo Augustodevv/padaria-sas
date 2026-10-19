@@ -22,14 +22,15 @@ export default function CadastrarPage() {
         footer={
           <p>
             Já tem conta?{" "}
-            <Link href="/entrar" className="font-medium text-coffee underline hover:text-caramel">
+            <Link href="/entrar" className="font-medium text-coffee underline hover:text-caramel-deep">
               Entrar
             </Link>
           </p>
         }
       />
-      <p className="mt-6 text-xs text-coffee/50">
-        Usamos seus dados apenas para processar pedidos e entregas, conforme a LGPD.
+      <p className="mt-6 text-xs text-coffee/70">
+        Usamos seus dados apenas para processar pedidos e entregas, conforme a LGPD. Leia a{" "}
+        <Link href="/privacidade" className="underline">política de privacidade</Link>.
       </p>
     </>
   );

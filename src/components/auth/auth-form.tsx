@@ -70,7 +70,7 @@ export function AuthForm({ action, fields, submitLabel, hidden, footer }: Props)
 
       <button
         disabled={pending}
-        className="flex w-full items-center justify-center gap-2 rounded-full bg-coffee py-3.5 font-medium text-cream transition hover:bg-caramel disabled:opacity-60"
+        className="flex w-full items-center justify-center gap-2 rounded-full bg-coffee py-3.5 font-medium text-cream transition hover:bg-caramel-deep disabled:opacity-60"
       >
         {pending && <Loader2 size={18} className="animate-spin" />}
         {submitLabel}

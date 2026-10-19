@@ -9,7 +9,7 @@ export function PageHeader({ title, subtitle, actions }: { title: string; subtit
     <header className="mb-8 flex flex-wrap items-end justify-between gap-4">
       <div>
         <h1 className="font-display text-3xl sm:text-4xl">{title}</h1>
-        {subtitle && <p className="mt-1 text-coffee/65">{subtitle}</p>}
+        {subtitle && <p className="mt-1 text-coffee/70">{subtitle}</p>}
       </div>
       {actions}
     </header>
@@ -44,12 +44,12 @@ export function StatCard({
 }) {
   return (
     <div className="rounded-xl border border-beige bg-white p-5">
-      <p className="text-sm text-coffee/65">{label}</p>
+      <p className="text-sm text-coffee/70">{label}</p>
       <p className="mt-2 font-display text-3xl tabular-nums">{value}</p>
       <div className="mt-2 flex items-center gap-2 text-xs">
         {delta !== undefined &&
           (delta === null ? (
-            <span className="text-coffee/50">sem período anterior</span>
+            <span className="text-coffee/70">sem período anterior</span>
           ) : (
             <span
               className={cn("inline-flex items-center gap-0.5 rounded-full px-2 py-0.5 font-medium", delta >= 0 ? "bg-olive/10 text-olive" : "bg-red-50 text-red-800")}
@@ -59,7 +59,7 @@ export function StatCard({
               <span className="sr-only">{delta >= 0 ? " a mais" : " a menos"} que o período anterior</span>
             </span>
           ))}
-        {hint && <span className="text-coffee/50">{hint}</span>}
+        {hint && <span className="text-coffee/70">{hint}</span>}
       </div>
     </div>
   );
@@ -84,7 +84,7 @@ export function StatusBadge({ status }: { status: OrderStatus }) {
 }
 
 export function EmptyState({ children }: { children: React.ReactNode }) {
-  return <p className="rounded-xl border border-dashed border-beige bg-white/60 py-12 text-center text-coffee/60">{children}</p>;
+  return <p className="rounded-xl border border-dashed border-beige bg-white/60 py-12 text-center text-coffee/70">{children}</p>;
 }
 
 export function LinkButton({ href, children, variant = "solid" }: { href: string; children: React.ReactNode; variant?: "solid" | "outline" }) {

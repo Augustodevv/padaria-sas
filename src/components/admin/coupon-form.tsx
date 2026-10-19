@@ -67,7 +67,7 @@ export function CouponForm({ initial }: { initial?: CouponFormValues }) {
       </div>
 
       <Checkbox name="isActive" label="Cupom ativo" defaultChecked={state.values ? state.values.isActive === "on" : (initial?.isActive ?? true)} />
-      <p className="text-xs text-coffee/55">Cada cliente pode usar o mesmo cupom uma vez.</p>
+      <p className="text-xs text-coffee/70">Cada cliente pode usar o mesmo cupom uma vez.</p>
 
       <div className="flex items-center gap-4 pt-2">
         <SubmitButton pending={pending}>{initial?.id ? "Salvar cupom" : "Criar cupom"}</SubmitButton>

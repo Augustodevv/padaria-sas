@@ -194,9 +194,9 @@ export function RevenueChart({ data }: { data: Point[] }) {
                 top: `${(Math.max(current.y - 70, 0) / H) * 100}%`,
               }}
             >
-              <p className="text-xs text-coffee/60">{shortDay(current.day)}</p>
+              <p className="text-xs text-coffee/70">{shortDay(current.day)}</p>
               <p className="font-semibold">{formatBRL(current.cents)}</p>
-              <p className="text-xs text-coffee/60">{current.orders} {current.orders === 1 ? "pedido" : "pedidos"}</p>
+              <p className="text-xs text-coffee/70">{current.orders} {current.orders === 1 ? "pedido" : "pedidos"}</p>
             </div>
           )}
         </div>

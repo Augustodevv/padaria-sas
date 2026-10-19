@@ -15,7 +15,7 @@ export default function RecuperarSenhaPage() {
         submitLabel="Enviar link"
         fields={[{ name: "email", label: "Email", type: "email", autoComplete: "email" }]}
         footer={
-          <Link href="/entrar" className="underline hover:text-caramel">
+          <Link href="/entrar" className="underline hover:text-caramel-deep">
             Voltar para entrar
           </Link>
         }

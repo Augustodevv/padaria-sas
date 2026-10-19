@@ -20,7 +20,7 @@ export function ProductPurchase({ product, available }: Props) {
           <button
             aria-label="Diminuir quantidade"
             onClick={() => setQty((q) => Math.max(1, q - 1))}
-            className="p-3.5 hover:text-caramel"
+            className="p-3.5 hover:text-caramel-deep"
           >
             <Minus size={16} />
           </button>
@@ -28,14 +28,14 @@ export function ProductPurchase({ product, available }: Props) {
           <button
             aria-label="Aumentar quantidade"
             onClick={() => setQty((q) => Math.min(20, q + 1))}
-            className="p-3.5 hover:text-caramel"
+            className="p-3.5 hover:text-caramel-deep"
           >
             <Plus size={16} />
           </button>
         </div>
         <AddToCartButton product={product} quantity={qty} disabled={!available} className="flex-1 sm:flex-none" />
       </div>
-      {!available && <p className="text-sm text-coffee/60">Este produto está indisponível no momento.</p>}
+      {!available && <p className="text-sm text-coffee/70">Este produto está indisponível no momento.</p>}
     </div>
   );
 }

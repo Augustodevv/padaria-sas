@@ -73,7 +73,7 @@ export function CheckoutForm({ slots, zones, customer }: Props) {
     return (
       <div className="py-20 text-center">
         <p className="font-editorial text-3xl italic">Seu carrinho está vazio</p>
-        <Link href="/cardapio" className="mt-6 inline-block rounded-full bg-coffee px-8 py-3 text-cream hover:bg-caramel">
+        <Link href="/cardapio" className="mt-6 inline-block rounded-full bg-coffee px-8 py-3 text-cream hover:bg-caramel-deep">
           Explorar cardápio
         </Link>
       </div>
@@ -142,10 +142,10 @@ export function CheckoutForm({ slots, zones, customer }: Props) {
                   fulfillment === value ? "border-coffee bg-white shadow-soft" : "border-beige hover:border-caramel",
                 )}
               >
-                <Icon className="text-caramel" />
+                <Icon className="text-caramel-deep" />
                 <span>
                   <span className="block font-medium">{title}</span>
-                  <span className="text-sm text-coffee/60">{sub}</span>
+                  <span className="text-sm text-coffee/70">{sub}</span>
                 </span>
               </button>
             ))}
@@ -253,16 +253,16 @@ export function CheckoutForm({ slots, zones, customer }: Props) {
             </div>
           </dl>
         ) : (
-          <p className="text-sm text-coffee/60">{preview?.error ?? "Calculando…"}</p>
+          <p className="text-sm text-coffee/70">{preview?.error ?? "Calculando…"}</p>
         )}
         {preview?.deliveryMessage && <p className="text-sm text-red-700">{preview.deliveryMessage}</p>}
 
         <button disabled={blocked}
-          className="flex w-full items-center justify-center gap-2 rounded-full bg-coffee py-4 font-medium text-cream transition hover:bg-caramel disabled:opacity-50">
+          className="flex w-full items-center justify-center gap-2 rounded-full bg-coffee py-4 font-medium text-cream transition hover:bg-caramel-deep disabled:opacity-50">
           {pending && <Loader2 size={18} className="animate-spin" />}
           {pending ? "Criando pedido…" : "Confirmar e pagar"}
         </button>
-        <p className="text-center text-xs text-coffee/50">
+        <p className="text-center text-xs text-coffee/70">
           O valor final é calculado e conferido no servidor. Pagamento seguro pelo Mercado Pago.
         </p>
       </aside>

@@ -70,7 +70,7 @@ export function ProductForm({
         </Field>
       </div>
 
-      <Field label="Imagens (URLs https, uma por linha)" name="images" state={state} hint="A primeira é a imagem principal. O upload direto (Cloudinary) entra quando as credenciais forem configuradas.">
+      <Field label="Imagens (URLs https, uma por linha)" name="images" state={state} hint="Hosts aceitos: res.cloudinary.com e images.unsplash.com. A primeira é a imagem principal. O upload direto (Cloudinary) entra quando as credenciais forem configuradas.">
         {(p) => <textarea {...p} name="images" rows={3} defaultValue={state.values?.images ?? initial?.images.join("\n")} className={inputCls} />}
       </Field>
 
