@@ -89,6 +89,17 @@ maison-du-pain/
 - **Produtos.** Arquivar em vez de excluir (pedidos mantêm o snapshot). Imagens por URL https; upload via Cloudinary fica para quando houver credenciais.
 - **Formulários.** As actions devolvem os valores enviados (nunca senhas) para o React 19 não limpar o que a pessoa digitou após um erro.
 
+## Segurança, observabilidade e SEO (Fase 6)
+
+- **Cabeçalhos** (`next.config.ts`): CSP (sem `eval` em produção, `frame-ancestors 'none'`, `object-src 'none'`, `form-action 'self'`), HSTS, `X-Frame-Options`, `nosniff`, `Referrer-Policy`, `Permissions-Policy`, COOP; sem `X-Powered-By`.
+  `'unsafe-inline'` em script/estilo é uma concessão consciente (hidratação do Next e estilos inline do Motion); o próximo passo seria CSP com nonce via proxy.
+- **Ambiente:** `src/lib/env.ts` valida com Zod; `src/instrumentation.ts` impede o servidor de subir em produção com variáveis críticas ausentes (verificado: o `next start` recusa e lista o que falta).
+- **Logs:** `src/lib/logger.ts` emite JSON por linha e redige chaves sensíveis (senha, token, cookie, assinatura…), mascara emails e não vaza stack.
+- **Imagens:** só `res.cloudinary.com` e `images.unsplash.com` (`src/lib/images.ts`), usadas por `next/image`, pela CSP e pela validação do painel; evita abusar o otimizador com URLs arbitrárias.
+- **SEO:** metadata por página, canonical, Open Graph, `opengraph-image`, `sitemap.xml` (com produtos do banco), `robots.txt` (bloqueia admin, checkout e áreas privadas), JSON-LD (`Bakery` na home, `Product` com preço em BRL e disponibilidade) com escape de `<`.
+- **Desempenho:** entrada do hero em CSS (o `<h1>` do LCP não espera hidratação), gradiente no lugar de `filter: blur`, uma fonte editorial em vez de seis, e altura mínima de uma tela nas páginas em streaming (rodapé não salta, CLS 0).
+- **Limitação conhecida:** redirecionamentos e 404 de páginas em streaming chegam com status 200 (sem vazar dados). Um `proxy.ts` com checagem de sessão resolveria os redirecionamentos de visitantes.
+
 ## Testes
 
 - `npm test`: unitários (regras puras: preço, cupom, agenda, entrega, status, assinatura, políticas, validators).
