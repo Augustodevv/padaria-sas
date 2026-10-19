@@ -16,7 +16,12 @@ export interface RateLimitResult {
   retryAfterSeconds: number;
 }
 
+/** Só para testes automatizados (E2E): ignorado em produção, onde o limite sempre vale. */
+const bypassed = () => process.env.RATE_LIMIT_DISABLED === "1" && process.env.NODE_ENV !== "production";
+
 export function rateLimit(key: string, limit: number, windowMs: number, now = Date.now()): RateLimitResult {
+  if (bypassed()) return { ok: true, remaining: limit, retryAfterSeconds: 0 };
+
   const entry = store.get(key);
 
   if (!entry || entry.resetAt <= now) {

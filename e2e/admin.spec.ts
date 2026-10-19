@@ -58,6 +58,8 @@ test.describe("Painel: administrador", () => {
     const row = page.getByRole("row").filter({ hasText: name });
     page.once("dialog", (d) => d.accept());
     await row.getByRole("button", { name: "Arquivar" }).click();
+    // espera a ação concluir (a linha sai da lista de ativos) antes de navegar; senão a navegação pode interrompê-la
+    await expect(page.getByRole("row").filter({ hasText: name })).toHaveCount(0);
 
     await page.goto(`/cardapio?q=${encodeURIComponent(name)}`);
     // #conteudo: o React mantém uma cópia oculta da página anterior durante a navegação

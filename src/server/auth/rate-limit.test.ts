@@ -1,7 +1,8 @@
-import { beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { rateLimit, resetRateLimits } from "./rate-limit";
 
 beforeEach(() => resetRateLimits());
+afterEach(() => vi.unstubAllEnvs());
 
 describe("rateLimit", () => {
   it("permite até o limite e bloqueia depois", () => {
@@ -26,5 +27,26 @@ describe("rateLimit", () => {
     for (let i = 0; i < 3; i++) rateLimit("a", 3, 60_000, 0);
     expect(rateLimit("a", 3, 60_000, 0).ok).toBe(false);
     expect(rateLimit("b", 3, 60_000, 0).ok).toBe(true);
+  });
+});
+
+describe("RATE_LIMIT_DISABLED (apenas para testes E2E)", () => {
+  it("desliga o limite fora de produção", () => {
+    vi.stubEnv("RATE_LIMIT_DISABLED", "1");
+    vi.stubEnv("NODE_ENV", "development");
+    for (let i = 0; i < 20; i++) expect(rateLimit("k", 2, 60_000, 0).ok).toBe(true);
+  });
+
+  it("é ignorado em produção: o limite continua valendo", () => {
+    vi.stubEnv("RATE_LIMIT_DISABLED", "1");
+    vi.stubEnv("NODE_ENV", "production");
+    expect(rateLimit("k", 2, 60_000, 0).ok).toBe(true);
+    expect(rateLimit("k", 2, 60_000, 0).ok).toBe(true);
+    expect(rateLimit("k", 2, 60_000, 0).ok).toBe(false);
+  });
+
+  it("sem a variável, o limite vale normalmente", () => {
+    expect(rateLimit("k", 1, 60_000, 0).ok).toBe(true);
+    expect(rateLimit("k", 1, 60_000, 0).ok).toBe(false);
   });
 });

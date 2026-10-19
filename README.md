@@ -172,6 +172,7 @@ npm run test:e2e     # Playwright (sobe o `next dev`; usa o Chrome instalado ou 
 - **Unitários:** preço, cupom, agenda, entrega, status e assinatura do Mercado Pago, transições de pedido, políticas de acesso, rate limit, validators, logger, env, SEO.
 - **Integração:** preço vindo do banco, snapshot, idempotência (inclusive simultânea), cupom com concorrência, valor divergente, eventos de pagamento repetidos/atrasados, transições com auditoria, devolução de cupom ao cancelar.
 - **E2E:** home, cabeçalhos de segurança, robots/sitemap, catálogo, carrinho, cadastro → checkout com cupom → pagamento simulado, isolamento entre clientes, controle de acesso do painel e **auditoria de acessibilidade com axe**.
+  O servidor do E2E sobe com `RATE_LIMIT_DISABLED=1` (ignorado em produção) para os testes não esbarrarem no limite de login/cadastro.
   Para o fluxo de administrador: `E2E_ADMIN_EMAIL=admin@maisondupain.example E2E_ADMIN_PASSWORD=<senha do seed> npm run test:e2e`.
 
 Primeira vez com Playwright fora do CI sem Chrome: `npx playwright install chromium` e remova `channel: "chrome"` da config.

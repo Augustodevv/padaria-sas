@@ -23,6 +23,8 @@ export default defineConfig({
     command: "npm run dev",
     url: baseURL,
     reuseExistingServer: !process.env.CI,
+    // Sem isso, vários cadastros/logins do mesmo IP e do mesmo admin caem no rate limit (que é uma feature).
+    env: { RATE_LIMIT_DISABLED: "1" },
     timeout: 180_000,
   },
 });
