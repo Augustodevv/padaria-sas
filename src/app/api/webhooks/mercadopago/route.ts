@@ -1,3 +1,4 @@
+import { log } from "@/lib/logger";
 import { NextResponse, type NextRequest } from "next/server";
 import { fetchPayment } from "@/server/integrations/mercadopago";
 import { recordPaymentEvent } from "@/server/repositories/orders";
@@ -48,11 +49,11 @@ export async function POST(req: NextRequest) {
     });
 
     if (result === "AMOUNT_MISMATCH") {
-      console.error("[mp-webhook] valor divergente", { orderId: payment.external_reference, paymentId: payment.id });
+      log.error("mp.webhook.amount_mismatch", { orderId: payment.external_reference, paymentId: payment.id });
     }
     return NextResponse.json({ ok: true, result });
   } catch (err) {
-    console.error("[mp-webhook] falha ao processar", err instanceof Error ? err.message : err);
+    log.error("mp.webhook.failed", { err });
     return NextResponse.json({ error: "processing failed" }, { status: 500 });
   }
 }

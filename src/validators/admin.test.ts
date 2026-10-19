@@ -52,7 +52,8 @@ describe("productSchema", () => {
     ["preço inválido", { price: "abc" }],
     ["nome curto", { name: "a" }],
     ["sem categoria", { categoryId: "" }],
-    ["imagem http", { images: "http://x.com/a.jpg" }],
+    ["imagem http", { images: "http://res.cloudinary.com/a.jpg" }],
+    ["imagem de host não permitido", { images: "https://evil.com/a.jpg" }],
     ["imagem javascript", { images: "javascript:alert(1)" }],
   ])("rejeita: %s", (_, patch) => {
     expect(productSchema.safeParse({ ...product, ...patch }).success).toBe(false);

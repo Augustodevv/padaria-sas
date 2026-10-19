@@ -1,6 +1,7 @@
 import "dotenv/config";
 import { PrismaClient } from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
+import bcrypt from "bcryptjs";
 import { categories, products, slugify } from "./seed-data";
 
 const db = new PrismaClient({
@@ -62,6 +63,24 @@ async function main() {
   ];
   for (const c of coupons) {
     await db.coupon.upsert({ where: { code: c.code }, update: { ...c }, create: { ...c } });
+  }
+
+  // USUÁRIOS DE DEMONSTRAÇÃO: só são criados se SEED_DEMO_PASSWORD estiver definida (nunca em produção).
+  const demoPassword = process.env.SEED_DEMO_PASSWORD;
+  if (demoPassword && process.env.NODE_ENV === "production") {
+    console.warn("SEED_DEMO_PASSWORD ignorada em produção: usuários de demonstração não foram criados.");
+  } else if (demoPassword) {
+    if (demoPassword.length < 8) throw new Error("SEED_DEMO_PASSWORD precisa ter pelo menos 8 caracteres.");
+    const passwordHash = await bcrypt.hash(demoPassword, 12);
+    const demo = [
+      { email: "admin@maisondupain.example", name: "Admin Demo", role: "ADMIN" as const },
+      { email: "equipe@maisondupain.example", name: "Equipe Demo", role: "STAFF" as const },
+      { email: "cliente@maisondupain.example", name: "Cliente Demo", role: "CUSTOMER" as const },
+    ];
+    for (const u of demo) {
+      await db.user.upsert({ where: { email: u.email }, update: { passwordHash, role: u.role, name: u.name }, create: { ...u, passwordHash } });
+    }
+    console.log("Usuários de demonstração: admin@, equipe@ e cliente@maisondupain.example (senha = SEED_DEMO_PASSWORD)");
   }
 
   console.log(`Seed ok: ${categories.length} categorias, ${products.length} produtos`);

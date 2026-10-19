@@ -1,5 +1,6 @@
 "use server";
 
+import { log } from "@/lib/logger";
 import { redirect } from "next/navigation";
 import { requireUser } from "@/server/auth/guards";
 import { canViewOrder } from "@/server/auth/policies";
@@ -31,7 +32,7 @@ export interface PlaceOrderResult {
 
 function friendly(err: unknown): string {
   if (err instanceof OrderError || err instanceof PricingError) return err.message;
-  console.error("[checkout]", err instanceof Error ? err.message : err);
+  log.error("checkout.failed", { err });
   return "Não foi possível concluir agora. Tente novamente em instantes.";
 }
 
@@ -93,7 +94,7 @@ export async function placeOrderAction(input: unknown): Promise<PlaceOrderResult
   try {
     return { redirectTo: await paymentUrlFor(order, user.email) };
   } catch (err) {
-    console.error("[checkout] falha ao iniciar pagamento", err instanceof Error ? err.message : err);
+    log.error("checkout.payment_start.failed", { err });
     return { redirectTo: `${orderPage}?erro=pagamento` };
   }
 }
@@ -109,7 +110,7 @@ export async function payOrderAction(orderId: string) {
   try {
     url = await paymentUrlFor(order, user.email);
   } catch (err) {
-    console.error("[checkout] falha ao iniciar pagamento", err instanceof Error ? err.message : err);
+    log.error("checkout.payment_start.failed", { err });
     redirect(`/pedido/${order.id}?erro=pagamento`);
   }
   redirect(url);

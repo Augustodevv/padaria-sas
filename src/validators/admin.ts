@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { ALLOWED_IMAGE_HOSTS, isAllowedImageUrl } from "@/lib/images";
 
 /** "12,90" → 1290 · "1.290,50" → 129050 · "12.90" → 1290. Inválido → null. */
 export function parseBRLToCents(input: string): number | null {
@@ -39,7 +40,9 @@ const checkbox = z
   .default("")
   .transform((v) => v === "on" || v === "true");
 
-const httpsUrl = z.string().url().refine((u) => u.startsWith("https://"), "Use URLs https.");
+const httpsUrl = z
+  .string()
+  .refine(isAllowedImageUrl, `Use URLs https de: ${ALLOWED_IMAGE_HOSTS.join(", ")}.`);
 
 export const productSchema = z.object({
   id: z.string().optional(),

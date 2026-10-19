@@ -1,5 +1,6 @@
 "use server";
 
+import { log } from "@/lib/logger";
 import { createHash, randomBytes } from "node:crypto";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
@@ -112,7 +113,7 @@ export async function forgotPasswordAction(_prev: FormState, formData: FormData)
   try {
     await sendPasswordResetEmail(user.email, `${base}/redefinir-senha?token=${token}`);
   } catch (err) {
-    console.error("[auth] falha ao enviar email de recuperação", err instanceof Error ? err.message : err);
+    log.error("auth.reset_email.failed", { err });
   }
   return generic;
 }
