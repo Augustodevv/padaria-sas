@@ -191,7 +191,9 @@ Primeira vez com Playwright fora do CI sem Chrome: `npx playwright install chrom
 
 ## 11. Deploy
 
-Preparado para **Vercel + PostgreSQL gerenciado** (testado o formato com Supabase).
+Passo a passo completo, com checklist e solução de problemas: **[`docs/DEPLOY.md`](docs/DEPLOY.md)**. Resumo abaixo.
+
+Preparado para **Vercel + PostgreSQL gerenciado** (formato pensado para Supabase; ainda não exercitado contra o Supabase real).
 
 1. Crie o banco e copie a connection string do **pooler** (IPv4). Para Prisma em serverless, prefira o modo de transação para `DATABASE_URL` e a conexão direta/sessão em `DIRECT_URL`.
 2. Na Vercel, importe o repositório e configure as variáveis da seção 6 (`DATABASE_URL`, `AUTH_SECRET`, `NEXT_PUBLIC_SITE_URL`, `MERCADOPAGO_*`).
