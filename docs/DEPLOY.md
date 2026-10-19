@@ -134,4 +134,4 @@ update "User" set role = 'ADMIN' where email = 'voce@exemplo.com';
 - Trocar `TEST-…` pelas credenciais de produção (`APP_USR-…`), cadastrar o webhook em **modo de produção** e atualizar o segredo.
 - Revisar a política de privacidade com orientação jurídica e adicionar termos de uso.
 - Ligar upload de imagens (Cloudinary), e-mail transacional (Resend) e trocar o rate limit em memória por Redis (veja o README, seção 13).
-- Considerar limitar o pool de conexões do app (`max` no `PrismaPg`) quando houver muito tráfego, para não esgotar o pooler.
+- O pool de conexões já é pequeno por instância (3 em produção). Se o banco reclamar de limite de conexões, reduza `DB_POOL_MAX`; se houver fila de consultas, aumente com cuidado.

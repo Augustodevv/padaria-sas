@@ -117,6 +117,7 @@ Copie `.env.example`. Nada de segredos reais no repositório (`.env*` está no `
 | `DATABASE_URL` | sim | Conexão PostgreSQL (use pooler IPv4 em provedores gerenciados) |
 | `AUTH_SECRET` | sim | Segredo da sessão, **mín. 32 caracteres**. `openssl rand -base64 32` |
 | `NEXT_PUBLIC_SITE_URL` | produção | URL pública (https em produção) — sitemap, OG e retorno do pagamento |
+| `DB_POOL_MAX` | não | Conexões por instância (1 a 50). Padrão: 3 em produção (serverless), 10 em desenvolvimento |
 | `DIRECT_URL` | não | Conexão direta só para migrations (quando `DATABASE_URL` usa pooler em modo transação) |
 | `MERCADOPAGO_ACCESS_TOKEN` | produção | Credencial de **teste** (`TEST-…`) para sandbox. Vazio em dev = pagamento simulado |
 | `MERCADOPAGO_WEBHOOK_SECRET` | produção | Segredo para validar a assinatura dos webhooks |
