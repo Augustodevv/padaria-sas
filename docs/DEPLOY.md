@@ -16,13 +16,7 @@ Confira que o CI ficou verde (aba *Actions*) antes de ligar a Vercel.
 
 ## 1. Banco de dados (Supabase)
 
-Você tem duas opções:
-
-**A) Reaproveitar o projeto `maison-du-pain` (ref `cwtzdgvowkfueevgdlxh`)** — ele já tem as 16 tabelas com RLS e o catálogo de demonstração, aplicados fora do Prisma. Por isso a migration precisa ser marcada como já aplicada (passo 5-A).
-
-**B) Criar um projeto novo** (região South America / São Paulo). Aqui as migrations rodam normalmente (passo 5-B).
-
-Em qualquer caso, defina a senha do banco **você mesmo** (letras e números, 16+ caracteres) em *Project Settings → Database → Database password*.
+Crie um projeto novo no Supabase (organização gratuita; região **South America / São Paulo**). Defina a senha do banco **você mesmo** (letras e números, 16+ caracteres) em *Project Settings → Database → Database password*.
 
 **Connection string (IPv4):** *Connect → Session pooler*. O host direto `db.<ref>.supabase.co` é só IPv6 e falha em muitas redes. O formato é:
 
@@ -66,27 +60,15 @@ Guarde em um gerenciador de senhas. **Nunca** reaproveite o `AUTH_SECRET` do seu
 4. **Deploy.** Em produção o servidor se recusa a subir se faltar algo crítico e lista o que falta nos logs (`src/instrumentation.ts`).
 5. Se a URL final for diferente da que você colocou em `NEXT_PUBLIC_SITE_URL`, corrija a variável e faça *Redeploy*.
 
-## 5. Migrations e catálogo (rodam na sua máquina, **antes** do primeiro acesso)
+## 5. Migrations e catálogo (automático no deploy)
 
-As migrations não rodam no build da Vercel de propósito (build não deve alterar o banco). O Prisma usa `DIRECT_URL` se existir.
+O `vercel.json` define o comando de build `prisma migrate deploy && prisma db seed && next build`. A cada deploy ele:
 
-**5-A. Reaproveitando o projeto que já tem as tabelas:**
+1. aplica as migrations pendentes (cria as tabelas na primeira vez);
+2. semeia o catálogo de demonstração **só se o banco ainda não tem produtos** (não sobrescreve preços editados no painel; `SEED_FORCE=1` força);
+3. faz o build.
 
-```powershell
-$env:DIRECT_URL = "postgresql://postgres.<REF>:<SENHA>@aws-1-sa-east-1.pooler.supabase.com:5432/postgres"
-npx prisma migrate resolve --applied 20261018000000_init
-npx prisma migrate status        # deve dizer "Database schema is up to date"
-```
-
-**5-B. Banco novo:**
-
-```powershell
-$env:DIRECT_URL = "postgresql://postgres.<REF>:<SENHA>@aws-1-sa-east-1.pooler.supabase.com:5432/postgres"
-npx prisma migrate deploy
-npx prisma db seed               # catálogo, cupons e bairros de demonstração
-```
-
-Variáveis definidas no terminal têm prioridade sobre o `.env` local, então não há risco de apontar para o banco errado por engano. **Não** defina `SEED_DEMO_PASSWORD` para o banco de produção.
+Por isso não é preciso rodar nada no terminal. Nenhum usuário é criado em produção (`SEED_DEMO_PASSWORD` é ignorada): veja a seção 7 para o primeiro admin.
 
 ## 6. Webhook do Mercado Pago
 
@@ -120,8 +102,8 @@ update "User" set role = 'ADMIN' where email = 'voce@exemplo.com';
 | Deploy ok, mas a primeira requisição falha e os logs listam variáveis | Faltou variável obrigatória em produção (`MERCADOPAGO_*`, `NEXT_PUBLIC_SITE_URL` em https, `AUTH_SECRET` curto) |
 | `P1001` (não alcança o banco) | Está usando o host direto IPv6; use o *Session pooler* |
 | `P1000` (autenticação) | Senha errada ou com caractere especial; use só letras e números e redefina em *Database password* |
-| `relation "Order" does not exist` | Esqueceu o passo 5 |
-| `P3009`/`already exists` ao migrar | Banco já tem as tabelas: use o passo 5-A (`migrate resolve`) |
+| Build falha em `prisma migrate deploy` | `DATABASE_URL` errada/sem acesso (use o Session pooler IPv4 e confira a senha) |
+| `P3009`/`already exists` ao migrar | O banco já tinha tabelas criadas fora do Prisma: rode uma vez `npx prisma migrate resolve --applied 20261018000000_init` com `DIRECT_URL` apontando para ele |
 | Webhook responde `401` | `MERCADOPAGO_WEBHOOK_SECRET` diferente da assinatura secreta do painel (ou faltou redeploy) |
 | Pedido fica em "Aguardando pagamento" | Webhook não chegou (URL/evento errados) ou o valor divergiu (log `mp.webhook.amount_mismatch`) |
 | Redirecionamento ao Mercado Pago não acontece | Token ausente/inválido; veja o log `checkout.payment_start.failed` |

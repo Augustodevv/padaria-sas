@@ -16,7 +16,7 @@ const ZONES = [
   { neighborhood: "Pinheiros", feeCents: 1400 },
 ];
 
-async function main() {
+async function seedCatalog() {
   const catIds = new Map<string, string>();
   for (const [i, c] of categories.entries()) {
     const row = await db.category.upsert({
@@ -64,6 +64,17 @@ async function main() {
   for (const c of coupons) {
     await db.coupon.upsert({ where: { code: c.code }, update: { ...c }, create: { ...c } });
   }
+}
+
+async function main() {
+  // Catálogo de demonstração: só semeia banco vazio, para o seed poder rodar a cada deploy sem
+  // sobrescrever preços e produtos editados no painel. SEED_FORCE=1 força (útil em desenvolvimento).
+  if (process.env.SEED_FORCE !== "1" && (await db.product.count()) > 0) {
+    console.log("Catálogo já existe: seed do catálogo ignorado (SEED_FORCE=1 para sobrescrever).");
+  } else {
+    await seedCatalog();
+    console.log(`Seed ok: ${categories.length} categorias, ${products.length} produtos`);
+  }
 
   // USUÁRIOS DE DEMONSTRAÇÃO: só são criados se SEED_DEMO_PASSWORD estiver definida (nunca em produção).
   const demoPassword = process.env.SEED_DEMO_PASSWORD;
@@ -82,8 +93,6 @@ async function main() {
     }
     console.log("Usuários de demonstração: admin@, equipe@ e cliente@maisondupain.example (senha = SEED_DEMO_PASSWORD)");
   }
-
-  console.log(`Seed ok: ${categories.length} categorias, ${products.length} produtos`);
 }
 
 main()

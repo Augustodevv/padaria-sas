@@ -17,7 +17,8 @@
     "db:migrate": "prisma migrate deploy",
     "db:deploy": "prisma migrate deploy",
     "db:seed": "prisma db seed",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "screenshots": "node scripts/screenshots.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.2",
